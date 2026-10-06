@@ -1,6 +1,6 @@
 # Distributed API Gateway
 
-This is an API gateway written in Go — the single entry point clients talk to instead of calling a backend service directly. Every request passes through authentication (JWT or API key), a per-account rate limit, and request logging before it's forwarded upstream. The gateway runs as three identical replicas behind nginx for load balancing, and the rate limiter uses a Redis-backed sliding-window algorithm so the limit is enforced globally across all three replicas — not per-replica, which would let a client triple their quota by spreading requests around. This mirrors how real API gateways like Kong, Envoy, and AWS API Gateway separate cross-cutting concerns (auth, throttling, routing) from business logic.
+This is an API gateway written in Go  the single entry point clients talk to instead of calling a backend service directly. Every request passes through authentication (JWT or API key), a per-account rate limit, and request logging before it's forwarded upstream. The gateway runs as three identical replicas behind nginx for load balancing, and the rate limiter uses a Redis-backed sliding-window algorithm so the limit is enforced globally across all three replicas not per-replica, which would let a client triple their quota by spreading requests around. This mirrors how real API gateways like Kong, Envoy, and AWS API Gateway separate cross-cutting concerns (auth, throttling, routing) from business logic.
 ---
 
 ## What it does
