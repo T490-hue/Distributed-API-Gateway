@@ -1,0 +1,3 @@
+loadtest/results/
+*.log
+.env
