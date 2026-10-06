@@ -1,9 +1,6 @@
 # Distributed API Gateway
 
-An API gateway in Go. Clients never call the backend directly: every request enters through the gateway, which authenticates the caller, enforces a per-account rate limit, and only then forwards the request upstream. This is the same separation Kong, Envoy and AWS API Gateway use, so authentication, throttling and routing stay out of business logic.
-
-Three identical gateway replicas run behind nginx. Rate limits are enforced **globally** through shared Redis state, so a client can't multiply their quota by spreading requests across replicas — and this is verified below, not just claimed.
-
+This is an API gateway written in Go — the single entry point clients talk to instead of calling a backend service directly. Every request passes through authentication (JWT or API key), a per-account rate limit, and request logging before it's forwarded upstream. The gateway runs as three identical replicas behind nginx for load balancing, and the rate limiter uses a Redis-backed sliding-window algorithm so the limit is enforced globally across all three replicas — not per-replica, which would let a client triple their quota by spreading requests around. This mirrors how real API gateways like Kong, Envoy, and AWS API Gateway separate cross-cutting concerns (auth, throttling, routing) from business logic.
 ---
 
 ## What it does
