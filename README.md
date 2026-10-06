@@ -1,15 +1,5 @@
 # Distributed API Gateway
 
-<!-- TODO: confirm before pushing —
-  1. Do you have a GitHub Actions CI workflow at .github/workflows/ci.yml? If not, delete the badge line below.
-  2. Have you deployed this to Render (or anywhere)? If not, delete the "Live demo" line below.
-  3. Does docs/DEPLOY.md exist in your repo? If not, remove the link near the bottom of this file.
-  Delete this comment once you've checked all three. -->
-
-[![CI](https://github.com/T490-hue/Distributed-API-Gateway/actions/workflows/ci.yml/badge.svg)](https://github.com/T490-hue/Distributed-API-Gateway/actions/workflows/ci.yml)
-
-**Live demo:** _<add your Render URL here; the first request may take ~1 min while the free instance wakes up>_
-
 An API gateway in Go. Clients never call the backend directly: every request enters through the gateway, which authenticates the caller, enforces a per-account rate limit, and only then forwards the request upstream. This is the same separation Kong, Envoy and AWS API Gateway use, so authentication, throttling and routing stay out of business logic.
 
 Three identical gateway replicas run behind nginx. Rate limits are enforced **globally** through shared Redis state, so a client can't multiply their quota by spreading requests across replicas — and this is verified below, not just claimed.
